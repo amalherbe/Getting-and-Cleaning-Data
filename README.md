@@ -31,7 +31,8 @@ What you find in this repository
 * README.md: this file
 * run_analysis.R: R script to transform raw data set in a tidy one
 
-### How to
+How to
+------
 
 * clone this repository
 * download compressed raw data
