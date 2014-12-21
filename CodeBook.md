@@ -33,25 +33,20 @@ Raw Data transformation
 
 The raw data sets are processed with the script run_analysis.R script to create a tidy data set.
 
-### Merge training and test sets
-
+__Merge training and test sets__
 Test and training data, subject ids and activity ids are merged to obtain a single data set. 
 Variables are labelled with the names assigned by original collectors.
 
-### Extract mean and standard deviation variables
-
+__Extract mean and standard deviation variables__
 Keep only the values of estimated mean and standard deviation .
 
-### Get descriptive activity names
-
+__Get descriptive activity names__
 A new column is added to intermediate data set with the activity description.
 
-### Get abel variables appropriately
-
+__Get abel variables appropriately__
 Labels given from the original collectors were changed to get valid/more descriptive R names 
 
-### Create a tidy data set
-
+__Create a tidy data set__
 From the intermediate data set is created a final tidy data set where numeric
 variables are averaged for each activity and each subject.
 

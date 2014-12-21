@@ -1,5 +1,15 @@
 require(plyr)
 
+#Utils: function add suffix
+addSuffix<- function(x, suffix) {
+  if (!(x %in% c("Subject","Activity"))) {
+    paste(x,suffix, sep="")
+  }
+  else{
+    x
+  }
+}
+
 #Get data
 pathfile<-file.path(getwd(),"UCI HAR Dataset")
 
@@ -35,7 +45,7 @@ sensorlabels<-rbind(rbind(featurelabels, c(562, "Subject")), c(563, "Id"))[,2]
 names(sensordata)<-sensorlabels
 
 #2. Extracts only the measurements on the mean and standard deviation for each measurement.
-sensordatameanstd <- sensordata[,grepl("mean|std|Subject|Id", names(sensordata))]
+sensordatameanstd <- sensordata[,grepl("mean\\(\\)|std\\(\\)|Subject|Id", names(sensordata))]
 
 #3. Uses descriptive activity names to name the activities in the data set
 sensordatameanstd <- join(sensordatameanstd, activitylabels, by = "Id", match = "first")
@@ -49,4 +59,9 @@ names(sensordatameanstd) <- make.names(names(sensordatameanstd))
 #5. From the data set in step 4, creates a second, independent tidy data set 
 # with the average of each variable for each activity and each subject 
 finaldata<-ddply(sensordatameanstd, c("Subject","Activity"), numcolwise(mean))
+#improve column names
+finaldataheaders<-names(finaldata)
+finaldataheaders<-sapply(finaldataheaders, addSuffix, ".mean")
+names(finaldata)<-finaldataheaders
+
 write.table(finaldata, file = "sensordata_avg_by_subject.txt", row.name=FALSE)
